@@ -10,5 +10,6 @@ export const config = {
     "/planner/:path*",
     "/journal/:path*",
     "/insights/:path*",
+    "/activities/:path*",
   ],
 };

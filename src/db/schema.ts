@@ -1,4 +1,5 @@
 
+import { primaryKey } from "drizzle-orm/pg-core";
 import { 
     pgTable,
     uuid,
@@ -81,3 +82,25 @@ export const timeEntries = pgTable("time_entries", {
         .defaultNow()
         .notNull(),
 })
+
+export const goalActivities = pgTable(
+    "goal_activities",
+    {
+        goalId: uuid("goal_id")
+            .references(() => goals.id, {
+                onDelete: "cascade",
+            })
+            .notNull(),
+
+        activityId: uuid("activity_id")
+            .references(() => activities.id, {
+                onDelete: "cascade",
+            })
+            .notNull(),
+    },
+    (table) => [
+        primaryKey({
+            columns: [table.goalId, table.activityId],
+        }),
+    ]
+);
